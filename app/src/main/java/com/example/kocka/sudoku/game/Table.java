@@ -3,8 +3,8 @@ import com.example.kocka.sudoku.game.Rule.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class Table {
 
@@ -116,8 +116,12 @@ public class Table {
         for (int i = 0; i < quantityToRemove; i++) {
             int randomInt = rnd.nextInt(81);
             Field field = fields.get(randomInt);
-            field.setNumber(0);
-            field.setEditable(true);
+            if(!field.isEditable()) {
+                field.setNumber(0);
+                field.setEditable(true);
+            } else {
+                i--;
+            }
         }
     }
 
@@ -143,17 +147,19 @@ public class Table {
         return fields;
     }
 
-    public boolean checkIfTableCorrect(){
-        for (RuleModel rulemodel:ruleModels) {
-            if(!rulemodel.isCorrectRuleModel()){
+    public boolean checkIfTableCorrect() {
+        for (RuleModel rulemodel : ruleModels) {
+            if (!rulemodel.isCorrectRuleModelForBuilding()) {
                 return false;
             }
         }
-
-
         return true;
-//        return !ruleModels.stream().map(RuleModel::isCorrectRuleModel)
-//                .anyMatch(ruleModels -> ruleModels.equals(false));
     }
+//        return !ruleModels.stream().map(RuleModel::isCorrectRuleModelForBuilding)
+//                .anyMatch(ruleModels -> ruleModels.equals(false));
+
+    //TODO
+    //public List<Integer> getInCorrectRuleModal(){
+
 
 }

@@ -15,7 +15,7 @@ public abstract class RuleModel {
         return false;
     }
 
-    public boolean isCorrectRuleModel(){
+    public boolean isCorrectRuleModelForBuilding(){
         for (int i = 1; i < 10; i++) {
             if(!hasNodeWithNumber(i)){
                 return false;
@@ -23,6 +23,8 @@ public abstract class RuleModel {
         }
         return true;
     }
+
+
 
     public ArrayList<Field> getFields(){
         return this.fields;

@@ -1,6 +1,7 @@
 package com.example.kocka.sudoku.game;
 
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Game {
@@ -44,7 +45,6 @@ public class Game {
     }
 
 
-
     public boolean isGameOver(){
         return table.checkIfTableCorrect();
     }
@@ -52,4 +52,6 @@ public class Game {
     public Table getTable() {
         return table;
     }
+
+
 }

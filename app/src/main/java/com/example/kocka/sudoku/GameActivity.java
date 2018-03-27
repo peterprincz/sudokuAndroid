@@ -63,6 +63,22 @@ public class GameActivity extends AppCompatActivity {
         ad.show();
     }
 
+    private void startUpDialogaaa() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Choose a difficulty");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        builder.setView(input);
+        builder.setPositiveButton("Easy", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                startGame(25);
+            }
+        });
+        AlertDialog ad = builder.create();
+        ad.setTitle("new Game");
+        ad.show();
+    }
+
     private void startUpDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("How many Fields needs to be removed?(1-80)");
@@ -153,6 +169,12 @@ public class GameActivity extends AppCompatActivity {
         tableParams.weight = 1;
         TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
         rowparams.weight = 1;
+        fillTableLayout(table, tableParams, rowparams);
+        table.setStretchAllColumns(true);
+        table.setShrinkAllColumns(true);
+    }
+
+    private void fillTableLayout(TableLayout table, TableLayout.LayoutParams tableParams, TableRow.LayoutParams rowparams) {
         for(int i = 0; i < 9; i ++){
             TableRow row = new TableRow(this);
             row.setLayoutParams(tableParams);
@@ -174,25 +196,25 @@ public class GameActivity extends AppCompatActivity {
                     field.setTag(realI + j + 12);
                     editTextHashMap.put(realI + j + 12, field);
                 }
-                //if(j / 3 == 0){}
-                //if(j / 3 == 1){editTextHashMap.put(realI + j + 6, field);}
-                //if(j / 3 == 2){editTextHashMap.put(realI + j + 12, field);}
-                field.getTag();
-                field.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                field.setBackgroundColor(Color.RED);
-                field.setInputType(InputType.TYPE_NULL);
-                field.setBackgroundResource(android.R.color.transparent);
-                field.setSingleLine(true);
-                field.setLayoutParams(rowparams);
-                field.setImeOptions(EditorInfo.IME_ACTION_DONE);
-                row.addView(field);
-                field.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1)});
+                setEditableField(rowparams, row, field);
             }
 
             table.addView(row);
         }
-        table.setStretchAllColumns(true);
-        table.setShrinkAllColumns(true);
+    }
+
+    @TargetApi(17)
+    private void setEditableField(TableRow.LayoutParams rowparams, TableRow row, EditText field) {
+        field.getTag();
+        field.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        field.setBackgroundColor(Color.RED);
+        field.setInputType(InputType.TYPE_NULL);
+        field.setBackgroundResource(android.R.color.transparent);
+        field.setSingleLine(true);
+        field.setLayoutParams(rowparams);
+        field.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        row.addView(field);
+        field.setFilters(new InputFilter[] {new InputFilter.LengthFilter(1)});
     }
 
     private void gameOverCheck(){
